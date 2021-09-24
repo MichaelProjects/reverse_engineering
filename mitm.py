@@ -47,6 +47,8 @@ def proxy_post(path):
     headers = request.headers
     payload = request.json
     print(f"POST Path: {path}, headers: {headers}, Payload:{payload}")
+    print(f"data: {request.get_data()}")
+    print("----------------------")
     response, http_code = send_post(os.environ["host"], path, headers, payload)
     return response, http_code
 

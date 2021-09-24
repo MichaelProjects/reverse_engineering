@@ -28,7 +28,7 @@ def send_post(host, path, header, payload):
 @app.route("/<path:path>", methods=['GET'])
 def proxy_get(path):
     headers = request.headers
-    response, http_code = send_request("https://stackblog.io", path, headers)
+    response, http_code = send_request(os.environ["host"], path, headers)
     return response, http_code
 
 
@@ -37,9 +37,10 @@ def proxy_get(path):
 def proxy_post(path):
     headers = request.headers
     payload = request.json
-    response, http_code = send_post("https://stackblog.io", path, headers, payload)
+    response, http_code = send_post(os.environ["host"], path, headers, payload)
     return response, http_code
 
 
 if __name__ == '__main__':
+    os.environ["host"] = "https://"
     app.run(host='127.0.0.1', port=8080, debug=True)

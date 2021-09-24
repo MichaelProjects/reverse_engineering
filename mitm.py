@@ -9,7 +9,7 @@ app = Flask(__name__)
 def send_request(host, path, headers):
     uri = f"{host}/{path}"
     print(uri)
-    response = requests.get(uri)
+    response = requests.get(uri, headers=headers)
     data = response.content
     http_code = response.status_code
     return data, http_code
@@ -42,5 +42,4 @@ def proxy_post(path):
 
 
 if __name__ == '__main__':
-    os.environ["host"] = "https://"
     app.run(host='127.0.0.1', port=8080, debug=True)

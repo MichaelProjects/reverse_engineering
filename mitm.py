@@ -35,6 +35,8 @@ def send_post(host, path, header, payload):
 @app.route("/<path:path>", methods=['GET'])
 def proxy_get(path):
     headers = request.headers
+    print(f"GET Path: {path}, headers: {headers}")
+
     response, http_code = send_request(os.environ["host"], path, headers)
     return response, http_code
 
@@ -44,6 +46,7 @@ def proxy_get(path):
 def proxy_post(path):
     headers = request.headers
     payload = request.json
+    print(f"POST Path: {path}, headers: {headers}, Payload:{payload}")
     response, http_code = send_post(os.environ["host"], path, headers, payload)
     return response, http_code
 
